@@ -1,0 +1,81 @@
+{
+	"activities": [
+		{
+			"title": "Instructor Activity",
+			"data": [
+				{"title": "Lecturing", "code": "LEC", "key": 1},
+				{"title": "Group Discussion", "code": "G-DIS", "key": 2},
+				{"title": "Administrative Task", "code": "ADM", "key": 3},
+				{"title": "Media", "code": "MED", "key": 4},
+				{"title": "Idle", "code": "IDL", "key": 5}
+			]
+		},
+		{
+			"title": "Student Activity",
+			"data": [
+				{"title": "Group Work", "code": "G-WK", "key": 6},
+				{"title": "Individual Work", "code": "I-WK", "key": 7},
+				{"title": "Presentation", "code": "PRS", "key": 8}
+			]
+		}
+	],
+
+	"a_events": {
+		"Instructor": [
+			{"title": "Problems", "code": "PRB", "type": "durational", "dependencies": [1, 2, 3, 6, 7]},
+			{"title": "Writing", "code": "WRT", "type": "durational", "dependencies": [1, 2, 3, 6, 7]},
+			{"title": "Pre-made Materials", "code": "PRE-M", "type": "durational", "dependencies": [1, 2, 3, 4, 6, 7]},
+			{"title": "Live Action", "code": "IL-ACT", "type": "durational", "dependencies": [1, 2, 7]},
+			{"title": "Class Feedback", "code": "C-FDB", "type": "durational", "dependencies": [1, 2, 6, 7]},
+			{"title": "Monitoring", "code": "MNT", "type": "durational", "dependencies": [2, 4, 6, 7, 8]},
+			{"title": "Moving", "code": "MOV", "type": "durational", "dependencies": [2, 6]},
+			{"title": "Engaging", "code": "ENG", "type": "durational", "dependencies": [1, 2, 3, 6, 7, 8]},
+			{"title": "Poses Question", "code": "POS-Q", "type": "instantaneous", "dependencies": [1, 2, 3]},
+			{"title": "Comprehension Question", "code": "COM-Q", "type": "instantaneous", "dependencies": [1, 2, 3, 6, 7]},
+			{"title": "Rhetorical Question", "code": "RHE-Q", "type": "instantaneous", "dependencies": [1, 21]},
+			{"title": "Answers Question", "code": "ANS-Q", "type": "instantaneous", "dependencies": [1, 2, 3, 6, 7, 8]},
+			{"title": "Individual Feedback", "code": "I-FDB", "type": "instantaneous", "dependencies": [1, 2, 3, 6, 7, 8]},
+			{"title": "Uses Humor", "code": "HUM", "type": "instantaneous", "dependencies": [1, 2, 3, 6, 7, 8]},
+			{"title": "Uses Emphasis", "code": "EMP", "type": "instantaneous", "dependencies": [1, 2, 3, 6, 7, 8]}
+		],
+		"Technology": [
+			{"title": "Digital", "code": "DIG", "type": "durational", "dependencies": [2, 3, 4, 6, 7, 8]},
+			{"title": "Response System", "code": "R-SYS", "type": "durational", "dependencies": [1, 2, 6, 7, 8]},
+			{"title": "Website", "code": "WEB", "type": "durational", "dependencies": [1, 2, 3, 4, 6, 7, 8]}
+		],
+		"Student": [
+			{"title": "Structured Work", "code": "STR-W", "type": "durational", "dependencies": [1, 2, 3, 6, 7, 8]},
+			{"title": "Informal Discussion", "code": "I-DSC", "type": "durational", "dependencies": [1, 2, 3, 6, 8]},
+			{"title": "Live Action", "code": "SL-ACT", "type": "durational", "dependencies": [1, 2, 3, 6, 8]},
+			{"title": "Taking Notes", "code": "T-NOT", "type": "durational", "dependencies": [1, 2, 3, 4, 6, 7, 8]},
+			{"title": "Distracted", "code": "DSR", "type": "durational", "dependencies": [1, 2, 3, 4, 6, 7, 8]},
+			{"title": "Whole Class Response", "code": "WCR", "type": "durational", "dependencies": [1, 2, 3, 7]}
+		]	
+	},
+	"z_events": {
+		"Instructor": [
+			{"title": "Asks a Question", "code": "ASK-Q", "type": "instantaneous", "dependencies": [1, 2, 3, 4, 6, 7, 8]},
+			{"title": "Responds to Instructor", "code": "RSP-I", "type": "instantaneous", "dependencies": [1, 2, 3, 4, 6, 7, 8]},
+			{"title": "Responds to Student", "code": "RSP-S", "type": "instantaneous", "dependencies": [1, 2, 3, 4, 6, 7, 8]},
+			{"title": "Makes Prediction", "code": "PRD", "type": "instantaneous", "dependencies": [1, 2, 6, 7, 8]}
+		],
+		"Student": [
+
+		]
+	},
+	"rooms": [
+		{"name": "THN E316", "z1": [1,1,8,6], "z2": [8,0,13,5], "z3": [8,5,13,7], "z4": [13,0,19,5], "z5": [13,5,19,7], "z6": [19,1,26,6], "key": 1},
+		{"name": "THN E303", "z1": [0,0,14,6], "z2": [14,0,27,6], "z3": [5,6,14,7], "z4": [14,6,23,7], "z5": [8,7,14,8], "z6": [14,7,19,8], "key": 2},
+		{"name": "RICE 130", "key": 3},
+		{"name": "CHM 402", "key": 4},
+		{"name": "OLS 011", "key": 5},
+		{"name": "PHY 203", "key": 6},
+		{"name": "BME 1041", "key": 7},
+		{"name": "RFN 179", "key": 8},
+		{"name": "RFN G004", "key": 9},
+		{"name": "MEC 214", "key": 10},
+		{"name": "PHY 204", "key": 11},
+		{"name": "THN A120", "z1": [1,4,5,7], "z2": [5,4,10,7], "z3": [13,5,21,8], "z4": [11,1,28,5], "key": 12},
+		{"name": "BRN 334", "key": 13},
+	]
+}
