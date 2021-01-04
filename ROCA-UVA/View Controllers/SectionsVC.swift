@@ -9,6 +9,7 @@ import UIKit
 
 protocol SectionsVCDelegate: AnyObject {
     func userDidSelectSection(section:Int, sender:SectionButton?)
+    func userDidSelectClassroomSection(section:Int)
     func userDidSelectSectionStudents(section:String,numStudents:Int)
 }
 
@@ -107,6 +108,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             let sectionNum = myButtons.firstIndex(of: button)! + 1;
             selectedSections.append(sectionNum)
             delegate?.userDidSelectSection(section: sectionNum, sender:button)
+            delegate?.userDidSelectClassroomSection(section: sectionNum)
         }
         else
         {sender.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
@@ -120,6 +122,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 selectedSections.remove(at: selectedSections.firstIndex(of: sectionNum)!)
             }
             delegate?.userDidSelectSection(section: sectionNum, sender:button)
+            delegate?.userDidSelectClassroomSection(section: sectionNum)
 
         }
         
@@ -180,7 +183,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     func sectionSelected(sender: SectionButton) {
         if let sectionNum = sender.section {
             self.buttonPressed(sender: myButtons[sectionNum-1])
-            delegate?.userDidSelectSection(section: sectionNum, sender:nil)
+            delegate?.userDidSelectClassroomSection(section: sectionNum)
         }
     }
     

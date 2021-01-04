@@ -104,8 +104,9 @@ class ClassroomSectionsVC: UIViewController, ClassroomSelectedDelegate,
         sender.alpha = 0.4
         sender.backgroundColor = .darkGray
         if sender.layer.borderColor == CGColor(red: 0, green: 0, blue: 0, alpha: 1){
-            sender.layer.borderColor = CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)}
-        else {
+            sender.layer.borderColor = CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)
+        }
+        else if (sender.layer.borderColor == CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)){
             sender.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
         }
     }
