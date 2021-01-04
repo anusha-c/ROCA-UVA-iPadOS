@@ -7,14 +7,15 @@
 import UIKit
 
 protocol ClassroomSelectedDelegate: AnyObject {
-    func userDidSelectClassroom(number: String)
+    func userDidSelectClassroom(number: String,classroom:ClassRoom?)
 }
 
 class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var classroomsTableView: UITableView!
-    weak var delegate:ClassroomSelectedDelegate? = nil
+    var delegates:[ClassroomSelectedDelegate] = []
     var selectedClassroomNum: String?=nil;
+    var selectedClassroom:ClassRoom?=nil;
     var classrooms = [
         ClassRoom("McLeod Hall", ["MCL-1020"]),
         ClassRoom("Mechanical Engineering", ["MEC-341"]),
@@ -36,6 +37,7 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedClassroomNum = classrooms[indexPath.section].num[indexPath.row]
+        self.selectedClassroom = classrooms[indexPath.section]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,7 +60,9 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
-        delegate?.userDidSelectClassroom(number: selectedClassroomNum ?? "")
+        for delegate in delegates{
+            delegate.userDidSelectClassroom(number: selectedClassroomNum ?? "", classroom: selectedClassroom)
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

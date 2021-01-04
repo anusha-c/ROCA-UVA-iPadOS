@@ -8,11 +8,12 @@
 import UIKit
 
 protocol SectionsVCDelegate: AnyObject {
-    func userDidSelectSection(section:Int)
+    func userDidSelectSection(section:Int, sender:SectionButton?)
     func userDidSelectSectionStudents(section:String,numStudents:Int)
 }
 
-class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, ViewControllerResetDelegate {
+class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate, ViewControllerSectionsDelegate
+{
     
     weak var delegate:SectionsVCDelegate?=nil
     var myButtons:[SectionButton]=[]
@@ -51,7 +52,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         myView.backgroundColor = .white
         self.view.addSubview(myView)
         myView.frame = CGRect(origin: origin, size: CGSize(width: 150, height: 50))
-        loadButton(view: myView, origin: CGPoint(x: 15, y: 15))
+        loadButton(view: myView, origin: CGPoint(x: 15, y: 15),section: num)
         loadLabel(view: myView, text: "Section \(num)", origin: CGPoint(x: 45, y: 15))
         mySections.append(myView)
     }
@@ -87,7 +88,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         myPickerViews.append(myPicker)
     }
     
-    func loadButton(view: UIView, origin: CGPoint){
+    func loadButton(view: UIView, origin: CGPoint, section: Int){
         let myButton = SectionButton(type: .system)
         myButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
         view.addSubview(myButton)
@@ -105,7 +106,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             button.picker?.isUserInteractionEnabled = true
             let sectionNum = myButtons.firstIndex(of: button)! + 1;
             selectedSections.append(sectionNum)
-            delegate?.userDidSelectSection(section: sectionNum)
+            delegate?.userDidSelectSection(section: sectionNum, sender:button)
         }
         else
         {sender.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
@@ -118,11 +119,12 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             if selectedSections.contains(sectionNum){
                 selectedSections.remove(at: selectedSections.firstIndex(of: sectionNum)!)
             }
-            delegate?.userDidSelectSection(section: sectionNum)
+            delegate?.userDidSelectSection(section: sectionNum, sender:button)
 
         }
         
     }
+    
     
     func loadLabel(view: UIView, text:String, origin:CGPoint){
         let myLabel = UILabel()
@@ -175,6 +177,12 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         self.reset()
     }
     
+    func sectionSelected(sender: SectionButton) {
+        if let sectionNum = sender.section {
+            self.buttonPressed(sender: myButtons[sectionNum-1])
+            delegate?.userDidSelectSection(section: sectionNum, sender:nil)
+        }
+    }
     
     func resetButton(_ button:UIButton){
         button.removeFromSuperview()

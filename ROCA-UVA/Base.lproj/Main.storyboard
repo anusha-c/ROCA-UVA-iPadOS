@@ -125,7 +125,7 @@
                                     <action selector="selectClassroom:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pgv-4d-Ffp"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uCG-KZ-uRQ">
+                            <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uCG-KZ-uRQ">
                                 <rect key="frame" x="20" y="187" width="968" height="400"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -260,6 +260,13 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jDA-zG-Nj9">
+                                <rect key="frame" x="21" y="187" width="966" height="400"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="pMO-tn-r4Z" kind="embed" identifier="classroomSectionsSegue" id="K32-r9-RqX"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -269,6 +276,7 @@
                         <outlet property="activityTitle" destination="Yyk-vf-ejZ" id="1hC-2k-5zR"/>
                         <outlet property="classroomImageView" destination="uCG-KZ-uRQ" id="Q8p-ij-dqK"/>
                         <outlet property="classroomLabel" destination="0ug-rk-hRc" id="ACG-Hd-C30"/>
+                        <outlet property="classroomSectionsContainerView" destination="jDA-zG-Nj9" id="h3i-nA-Rh5"/>
                         <outlet property="feedBackLabel" destination="Bk6-sz-wCb" id="8mo-zi-cTH"/>
                         <outlet property="sectionsContainerView" destination="6Mt-kR-0Z3" id="h6R-Bh-lx5"/>
                         <outlet property="selectActivityButton" destination="Y38-4Z-z1w" id="JtF-mB-DE5"/>
@@ -299,10 +307,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="rPQ-NY-Uob"/>
                     </view>
+                    <navigationItem key="navigationItem" id="79e-2d-jhS"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3rS-sq-6Nl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="20.593220338983052" y="540.73170731707319"/>
+            <point key="canvasLocation" x="51" y="611"/>
         </scene>
         <!--EventsVC-->
         <scene sceneID="w1U-NU-GQY">
@@ -479,6 +488,19 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WKx-qw-joT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-499.41434846266469" y="144.7265625"/>
+        </scene>
+        <!--Classroom SectionsVC-->
+        <scene sceneID="2d8-vc-vBX">
+            <objects>
+                <viewController id="pMO-tn-r4Z" customClass="ClassroomSectionsVC" customModule="ROCA_UVA" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="FyV-e2-wva">
+                        <rect key="frame" x="0.0" y="0.0" width="966" height="400"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wau-mn-0QA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-258" y="-648"/>
         </scene>
     </scenes>
     <resources>

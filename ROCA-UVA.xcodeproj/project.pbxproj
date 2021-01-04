@@ -29,6 +29,7 @@
 		179E32C025A0CF350006B110 /* SectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32BF25A0CF350006B110 /* SectionsVC.swift */; };
 		179E32C525A0E4370006B110 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32C425A0E4370006B110 /* SectionPickerView.swift */; };
 		179E32CA25A0E92D0006B110 /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32C925A0E92D0006B110 /* SectionButton.swift */; };
+		179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		179E32BF25A0CF350006B110 /* SectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionsVC.swift; sourceTree = "<group>"; };
 		179E32C425A0E4370006B110 /* SectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPickerView.swift; sourceTree = "<group>"; };
 		179E32C925A0E92D0006B110 /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
+		179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomSectionsVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				179E32AE259918660006B110 /* EventButton.swift */,
 				1758DD352592857600FC7C04 /* ZEventsVC.swift */,
 				179E32A42598ED3B0006B110 /* AEventsVC.swift */,
+				179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 			files = (
 				1758DCB5258EA6DA00FC7C04 /* selectClassroomVC.swift in Sources */,
 				179E32A52598ED3B0006B110 /* AEventsVC.swift in Sources */,
+				179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */,
 				1758DC73258BC8B500FC7C04 /* ViewController.swift in Sources */,
 				1758DD312592723900FC7C04 /* DatabaseManager.swift in Sources */,
 				1758DC6F258BC8B500FC7C04 /* AppDelegate.swift in Sources */,
