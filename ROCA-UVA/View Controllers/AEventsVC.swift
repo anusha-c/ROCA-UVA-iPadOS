@@ -75,21 +75,21 @@ class AEventsVC : UIViewController, SecondViewControllerDelegate {
         for event in aInstructorEvents! {
             if event.dependencies.contains(selectedActivity!.key){
             loadButton(eventItem:event, activity: selectedActivity, origin:CGPoint(x: X, y: Y))
-            Y += 45;
+            Y += 48;
             }}
         loadLabel(title: "Technology", origin:CGPoint(x:0,y:Y))
         Y += 45;
         for event in aTechEvents! {
             if event.dependencies.contains(selectedActivity!.key){
             loadButton(eventItem:event, activity: selectedActivity, origin:CGPoint(x: X, y: Y))
-            Y += 45;
+            Y += 48;
             }}
         loadLabel(title: "Student", origin:CGPoint(x:0,y:Y))
         Y += 45;
         for event in aStudentEvents! {
             if event.dependencies.contains(selectedActivity!.key){
             loadButton(eventItem:event, activity: selectedActivity, origin:CGPoint(x: X, y: Y))
-            Y += 45;
+            Y += 48;
             }}
     }
     

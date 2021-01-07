@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		1758DC6F258BC8B500FC7C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC6E258BC8B500FC7C04 /* AppDelegate.swift */; };
 		1758DC71258BC8B500FC7C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC70258BC8B500FC7C04 /* SceneDelegate.swift */; };
-		1758DC73258BC8B500FC7C04 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC72258BC8B500FC7C04 /* ViewController.swift */; };
 		1758DC76258BC8B600FC7C04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1758DC74258BC8B600FC7C04 /* Main.storyboard */; };
 		1758DC78258BC8B700FC7C04 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1758DC77258BC8B700FC7C04 /* Assets.xcassets */; };
 		1758DC7B258BC8B700FC7C04 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1758DC79258BC8B700FC7C04 /* LaunchScreen.storyboard */; };
@@ -17,7 +16,6 @@
 		1758DC91258BC8B700FC7C04 /* ROCA_UVAUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC90258BC8B700FC7C04 /* ROCA_UVAUITests.swift */; };
 		1758DCB0258EA3B200FC7C04 /* ClassRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCAF258EA3B200FC7C04 /* ClassRoom.swift */; };
 		1758DCB5258EA6DA00FC7C04 /* selectClassroomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCB4258EA6DA00FC7C04 /* selectClassroomVC.swift */; };
-		1758DCBA258EB36E00FC7C04 /* selectActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCB9258EB36E00FC7C04 /* selectActivityVC.swift */; };
 		1758DCBF258EB75D00FC7C04 /* NoteTaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCBE258EB75D00FC7C04 /* NoteTaker.swift */; };
 		1758DCC4258EB92400FC7C04 /* commentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCC3258EB92400FC7C04 /* commentVC.swift */; };
 		1758DCE8258EC15500FC7C04 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DCE7258EC15500FC7C04 /* Database.swift */; };
@@ -30,6 +28,8 @@
 		179E32C525A0E4370006B110 /* SectionPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32C425A0E4370006B110 /* SectionPickerView.swift */; };
 		179E32CA25A0E92D0006B110 /* SectionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32C925A0E92D0006B110 /* SectionButton.swift */; };
 		179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */; };
+		179E32F325A7732A0006B110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32F225A7732A0006B110 /* ViewController.swift */; };
+		179E32FE25A775410006B110 /* selectActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32FD25A775410006B110 /* selectActivityVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +53,6 @@
 		1758DC6B258BC8B500FC7C04 /* ROCA-UVA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ROCA-UVA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1758DC6E258BC8B500FC7C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1758DC70258BC8B500FC7C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1758DC72258BC8B500FC7C04 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = "/Users/anushachoudhary/Documents/ROCA-UVA/ROCA-UVA/New Group/ViewController.swift"; sourceTree = "<absolute>"; };
 		1758DC75258BC8B600FC7C04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1758DC77258BC8B700FC7C04 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1758DC7A258BC8B700FC7C04 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -66,7 +65,6 @@
 		1758DC92258BC8B700FC7C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1758DCAF258EA3B200FC7C04 /* ClassRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassRoom.swift; sourceTree = "<group>"; };
 		1758DCB4258EA6DA00FC7C04 /* selectClassroomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectClassroomVC.swift; sourceTree = "<group>"; };
-		1758DCB9258EB36E00FC7C04 /* selectActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = selectActivityVC.swift; path = "/Users/anushachoudhary/Documents/ROCA-UVA/ROCA-UVA/Controller/../View/selectActivityVC.swift"; sourceTree = "<absolute>"; };
 		1758DCBE258EB75D00FC7C04 /* NoteTaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteTaker.swift; sourceTree = "<group>"; };
 		1758DCC3258EB92400FC7C04 /* commentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentVC.swift; sourceTree = "<group>"; };
 		1758DCE7258EC15500FC7C04 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
@@ -79,6 +77,8 @@
 		179E32C425A0E4370006B110 /* SectionPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionPickerView.swift; sourceTree = "<group>"; };
 		179E32C925A0E92D0006B110 /* SectionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionButton.swift; sourceTree = "<group>"; };
 		179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomSectionsVC.swift; sourceTree = "<group>"; };
+		179E32F225A7732A0006B110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		179E32FD25A775410006B110 /* selectActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectActivityVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,16 +167,16 @@
 			isa = PBXGroup;
 			children = (
 				1758DCC3258EB92400FC7C04 /* commentVC.swift */,
-				1758DCB9258EB36E00FC7C04 /* selectActivityVC.swift */,
 				1758DCB4258EA6DA00FC7C04 /* selectClassroomVC.swift */,
 				179E32BF25A0CF350006B110 /* SectionsVC.swift */,
 				179E32C925A0E92D0006B110 /* SectionButton.swift */,
 				179E32C425A0E4370006B110 /* SectionPickerView.swift */,
-				1758DC72258BC8B500FC7C04 /* ViewController.swift */,
 				179E32AE259918660006B110 /* EventButton.swift */,
 				1758DD352592857600FC7C04 /* ZEventsVC.swift */,
 				179E32A42598ED3B0006B110 /* AEventsVC.swift */,
 				179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */,
+				179E32F225A7732A0006B110 /* ViewController.swift */,
+				179E32FD25A775410006B110 /* selectActivityVC.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -315,11 +315,11 @@
 				1758DCB5258EA6DA00FC7C04 /* selectClassroomVC.swift in Sources */,
 				179E32A52598ED3B0006B110 /* AEventsVC.swift in Sources */,
 				179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */,
-				1758DC73258BC8B500FC7C04 /* ViewController.swift in Sources */,
 				1758DD312592723900FC7C04 /* DatabaseManager.swift in Sources */,
 				1758DC6F258BC8B500FC7C04 /* AppDelegate.swift in Sources */,
 				1758DCB0258EA3B200FC7C04 /* ClassRoom.swift in Sources */,
 				1758DD362592857600FC7C04 /* ZEventsVC.swift in Sources */,
+				179E32FE25A775410006B110 /* selectActivityVC.swift in Sources */,
 				1758DCBF258EB75D00FC7C04 /* NoteTaker.swift in Sources */,
 				1758DC71258BC8B500FC7C04 /* SceneDelegate.swift in Sources */,
 				1758DCE8258EC15500FC7C04 /* Database.swift in Sources */,
@@ -327,7 +327,7 @@
 				179E32AF259918660006B110 /* EventButton.swift in Sources */,
 				179E32C025A0CF350006B110 /* SectionsVC.swift in Sources */,
 				179E32C525A0E4370006B110 /* SectionPickerView.swift in Sources */,
-				1758DCBA258EB36E00FC7C04 /* selectActivityVC.swift in Sources */,
+				179E32F325A7732A0006B110 /* ViewController.swift in Sources */,
 				179E32CA25A0E92D0006B110 /* SectionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
