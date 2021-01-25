@@ -28,6 +28,8 @@ class selectActivityVC: UIViewController, UITableViewDelegate, UITableViewDataSo
  
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedActivity = database?.activities[indexPath.section].data[indexPath.row]
+        delegate?.userDidSelectActivity(activity: selectedActivity)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -48,14 +50,6 @@ class selectActivityVC: UIViewController, UITableViewDelegate, UITableViewDataSo
         return database?.activities[section].title;
     }
     
-    @IBAction func donePressed(_ sender: UIBarButtonItem) {
-        delegate?.userDidSelectActivity(activity: selectedActivity)
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func cancelPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
 }
 

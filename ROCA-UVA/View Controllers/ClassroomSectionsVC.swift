@@ -32,6 +32,8 @@ class ClassroomSectionsVC: UIViewController, ClassroomSelectedDelegate,
             loadSection(sectionNum: counter, frame:section)
             counter += 1;
         }
+        
+        self.selectAllSections()
     }
     
     func loadSection(sectionNum:Int, frame: CGRect){
@@ -108,6 +110,19 @@ class ClassroomSectionsVC: UIViewController, ClassroomSelectedDelegate,
         }
         else if (sender.layer.borderColor == CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)){
             sender.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        }
+    }
+    
+    func selectAllSections(){
+        for sender in myButtons {
+            sender.alpha = 0.4
+            sender.backgroundColor = .darkGray
+            if sender.layer.borderColor == CGColor(red: 0, green: 0, blue: 0, alpha: 1){
+                sender.layer.borderColor = CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)
+            }
+            else if (sender.layer.borderColor == CGColor(red: 0.1, green: 1, blue: 0.2, alpha: 1)){
+                sender.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+            }
         }
     }
     

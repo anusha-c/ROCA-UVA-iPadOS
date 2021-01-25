@@ -19,6 +19,8 @@ protocol SecondViewControllerDelegate:AnyObject {
 
 protocol ViewControllerSectionsDelegate:AnyObject {
     func resetButtonPressed()
+    func startButtonPressed()
+    func loadDefaultView()
     func sectionSelected(sender: SectionButton)
 }
 
@@ -78,6 +80,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         if !sessionStarted {
             primaryDelegate?.startButtonPressed(true)
             secondaryDelegate?.startButtonPressed(true)
+            sectionsDelegate?.startButtonPressed()
             sessionStarted = true;
             noteTaker.takeNotes(note: "Observation started", type: nil)
             startStopButton.backgroundColor = UIColor.red;
@@ -90,26 +93,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         //TODO: Reset all displays and buttons
-        noteTaker.reset()
-        activityTitle.text = "Select an Activity"
-        feedBackLabel.text = "Start recording events!"
-        sessionStarted = false;
-        startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
-        startStopLabel.text = "Start";
-        classroomLabel.text = "none selected";
-        classroomLabel.textColor = UIColor.link
-        classroomLabel.font = UIFont(name: "HelveticaNeue", size: 17.0)
-        classroomImageView.image = nil;
-        zEventsContainerView.isHidden = true;
-        aEventsContainerView.isHidden = true;
-        selectActivityButton.isEnabled = false;
-        startStopButton.isEnabled = false;
-        sectionsContainerView.isHidden = true;
-        classroomSectionsContainerView.isHidden = true;
-        
-        sectionsDelegate?.resetButtonPressed()
-        selectedSections = []
-        selectedActivity = nil
+        handleReset()
     }
     
     @IBAction func commentButtonPressed(_ sender: UIButton) {
@@ -178,6 +162,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             classroomSectionsContainerView.isHidden = false;
             
             sectionsDelegate?.resetButtonPressed()
+            sectionsDelegate?.loadDefaultView()
             selectedSections.removeAll()
         }
         }
@@ -277,6 +262,30 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         noteTaker.takeNotes(note: "Observation stopped", type: nil)
         startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
         startStopLabel.text = "Start";
+        handleReset()
+    }
+    
+    func handleReset(){
+        noteTaker.reset()
+        activityTitle.text = "Select an Activity"
+        feedBackLabel.text = "Start recording events!"
+        sessionStarted = false;
+        startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
+        startStopLabel.text = "Start";
+        classroomLabel.text = "none selected";
+        classroomLabel.textColor = UIColor.link
+        classroomLabel.font = UIFont(name: "HelveticaNeue", size: 17.0)
+        classroomImageView.image = nil;
+        zEventsContainerView.isHidden = true;
+        aEventsContainerView.isHidden = true;
+        selectActivityButton.isEnabled = false;
+        startStopButton.isEnabled = false;
+        sectionsContainerView.isHidden = true;
+        classroomSectionsContainerView.isHidden = true;
+        
+        sectionsDelegate?.resetButtonPressed()
+        selectedSections = []
+        selectedActivity = nil
     }
     
     func share(sender: AnyObject) {

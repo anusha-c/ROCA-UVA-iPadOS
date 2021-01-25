@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1740E72A25BB6E8400F8B148 /* SectionStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1740E72925BB6E8400F8B148 /* SectionStepper.swift */; };
 		1758DC6F258BC8B500FC7C04 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC6E258BC8B500FC7C04 /* AppDelegate.swift */; };
 		1758DC71258BC8B500FC7C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1758DC70258BC8B500FC7C04 /* SceneDelegate.swift */; };
 		1758DC76258BC8B600FC7C04 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1758DC74258BC8B600FC7C04 /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1740E72925BB6E8400F8B148 /* SectionStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionStepper.swift; sourceTree = "<group>"; };
 		1758DC6B258BC8B500FC7C04 /* ROCA-UVA.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ROCA-UVA.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1758DC6E258BC8B500FC7C04 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1758DC70258BC8B500FC7C04 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				1758DCC3258EB92400FC7C04 /* commentVC.swift */,
 				1758DCB4258EA6DA00FC7C04 /* selectClassroomVC.swift */,
 				179E32BF25A0CF350006B110 /* SectionsVC.swift */,
+				1740E72925BB6E8400F8B148 /* SectionStepper.swift */,
 				179E32C925A0E92D0006B110 /* SectionButton.swift */,
 				179E32C425A0E4370006B110 /* SectionPickerView.swift */,
 				179E32AE259918660006B110 /* EventButton.swift */,
@@ -313,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1758DCB5258EA6DA00FC7C04 /* selectClassroomVC.swift in Sources */,
+				1740E72A25BB6E8400F8B148 /* SectionStepper.swift in Sources */,
 				179E32A52598ED3B0006B110 /* AEventsVC.swift in Sources */,
 				179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */,
 				1758DD312592723900FC7C04 /* DatabaseManager.swift in Sources */,
@@ -505,13 +509,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8GQP4PRF6G;
+				DEVELOPMENT_TEAM = E3486EQ9VT;
 				INFOPLIST_FILE = "ROCA-UVA/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anushac.ROCA-UVA";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ac7ncw.ROCA-UVA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -524,13 +528,13 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8GQP4PRF6G;
+				DEVELOPMENT_TEAM = E3486EQ9VT;
 				INFOPLIST_FILE = "ROCA-UVA/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.anushac.ROCA-UVA";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.ac7ncw.ROCA-UVA";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

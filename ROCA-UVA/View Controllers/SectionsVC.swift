@@ -21,7 +21,9 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     var myLabels:[UILabel]=[]
     var mySections:[UIView]=[]
     var myPickerViews:[SectionPickerView]=[]
+    var mySteppers:[SectionStepper]=[]
     var selectedSections:[Int]=[]
+    var startPressed:Bool=false
    
     
     override func viewDidLoad() {
@@ -29,6 +31,10 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         loadSections()
         loadPickerViews()
         assignButtonPickers()
+    }
+    
+    func loadDefaultView() {
+        self.selectAllSections()
     }
     
     func loadSections(){
@@ -87,6 +93,32 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         myPicker.frame = CGRect(origin: origin, size: CGSize(width: 100, height: 100))
         view.addSubview(myPicker)
         myPickerViews.append(myPicker)
+    }
+    
+    func loadSteppers(){
+        var counter = 1;
+        var x = 0;
+        var y = 0;
+        while (counter<7){
+            loadStepper(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)")
+            if counter%2 == 0{
+                y += 70
+                x -= 250
+            }
+            else {
+                x+=250
+            }
+        counter += 1
+        }
+    }
+    
+    func loadStepper(view:UIView, origin:CGPoint, section:String){
+        let myStepper = SectionStepper()
+        self.view.addSubview(myStepper)
+        myStepper.section = section
+        myStepper.frame = CGRect(origin:origin, size: CGSize(width:30,height:20))
+        view.addSubview(myStepper)
+        self.mySteppers.append(myStepper)
     }
     
     func loadButton(view: UIView, origin: CGPoint, section: Int){
@@ -152,7 +184,8 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let sectionPicker = pickerView as! SectionPickerView
-        delegate?.userDidSelectSectionStudents(section: sectionPicker.section, numStudents: row)
+        if startPressed==true{
+            delegate?.userDidSelectSectionStudents(section: sectionPicker.section, numStudents: row)}
     }
     
     func assignButtonPickers(){
@@ -172,8 +205,49 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         self.mySections.removeAll()
         myPickerViews.map(resetPicker(_:))
         self.myPickerViews.removeAll()
+        mySteppers.map(resetStepper(_:))
+        self.mySteppers.removeAll()
         self.selectedSections.removeAll()
         self.viewDidLoad()
+    }
+    
+    func startButtonPressed() {
+        startPressed = true
+        deselectAllSections()
+    }
+    
+    func selectAllSections(){
+        for sender in self.myButtons{
+            if sender.currentBackgroundImage == UIImage(systemName: "square"){
+        sender.setBackgroundImage(UIImage(systemName: "checkmark.square.fill"), for: .normal)
+            sender.tintColor = .link
+            let button = sender as! SectionButton
+            button.picker?.isUserInteractionEnabled = true
+            let sectionNum = myButtons.firstIndex(of: button)! + 1;
+            selectedSections.append(sectionNum)
+            delegate?.userDidSelectSection(section: sectionNum, sender:button)
+            //delegate?.userDidSelectClassroomSection(section: sectionNum)
+        }
+        }
+    }
+    
+    func deselectAllSections(){
+        for sender in self.myButtons{
+            if sender.currentBackgroundImage == UIImage(systemName: "checkmark.square.fill"){
+            sender.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
+                sender.tintColor = .systemGray2
+                let button = sender as! SectionButton
+                button.picker?.isUserInteractionEnabled = false
+                
+                let sectionNum = myButtons.firstIndex(of: button)! + 1;
+                
+                if selectedSections.contains(sectionNum){
+                    selectedSections.remove(at: selectedSections.firstIndex(of: sectionNum)!)
+                }
+                delegate?.userDidSelectSection(section: sectionNum, sender:button)
+                delegate?.userDidSelectClassroomSection(section: sectionNum)
+        }
+        }
     }
     
     func resetButtonPressed() {
@@ -195,6 +269,9 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     }
     func resetPicker(_ picker:UIPickerView){
         picker.removeFromSuperview()
+    }
+    func resetStepper(_ stepper:UIStepper){
+        stepper.removeFromSuperview()
     }
     func resetSection(_ section:UIView){
         section.removeFromSuperview()
