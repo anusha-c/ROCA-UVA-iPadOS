@@ -8,5 +8,6 @@ import UIKit
 
 class SectionButton: UIButton {
     var picker:UIPickerView?=nil
+    var stepper:UIStepper?=nil
     var section:Int?=nil
 }

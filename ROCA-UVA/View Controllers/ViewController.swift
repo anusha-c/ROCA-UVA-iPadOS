@@ -81,6 +81,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             primaryDelegate?.startButtonPressed(true)
             secondaryDelegate?.startButtonPressed(true)
             sectionsDelegate?.startButtonPressed()
+            self.selectedSections=[]
             sessionStarted = true;
             noteTaker.takeNotes(note: "Observation started", type: nil)
             startStopButton.backgroundColor = UIColor.red;
@@ -180,7 +181,11 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             aEventsContainerView.isHidden = false;
             primaryDelegate?.activitySelected(activity!)
             secondaryDelegate?.activitySelected(activity!)
-
+            
+            if sessionStarted {
+            primaryDelegate?.startButtonPressed(true)
+            secondaryDelegate?.startButtonPressed(true)
+            }
         }
     }
     
@@ -191,7 +196,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         else {
             self.selectedSections.append(section)
         }
-        
+        print(self.selectedSections)
     }
     
     func userDidSelectClassroomSection(section: Int) {

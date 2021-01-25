@@ -9,4 +9,5 @@ import UIKit
 
 class SectionStepper: UIStepper {
     var section:String!=""
+    var sectionNum:Int!=0
 }

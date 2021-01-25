@@ -24,6 +24,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     var mySteppers:[SectionStepper]=[]
     var selectedSections:[Int]=[]
     var startPressed:Bool=false
+    var sectionStudents:[Int]=[0,0,0,0,0,0]
    
     
     override func viewDidLoad() {
@@ -67,7 +68,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     func loadPickerViews(){
         var counter = 1;
         var x = 0;
-        var y = 0;
+        var y = 20;
         while (counter<7){
             loadPickerView(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)")
             if counter%2 == 0{
@@ -90,17 +91,19 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         myPicker.tintColor = .white
         myPicker.section = section
         myPicker.isUserInteractionEnabled = false
-        myPicker.frame = CGRect(origin: origin, size: CGSize(width: 100, height: 100))
+        myPicker.frame = CGRect(origin: origin, size: CGSize(width: 100, height: 80))
         view.addSubview(myPicker)
         myPickerViews.append(myPicker)
     }
     
     func loadSteppers(){
         var counter = 1;
-        var x = 0;
-        var y = 0;
+        var x = 2;
+        var y = 10;
         while (counter<7){
-            loadStepper(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)")
+            let stepper = loadStepper(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)", sectionNum: counter)
+            stepper.value = Double(sectionStudents[counter-1])
+            print(myPickerViews[counter-1])
             if counter%2 == 0{
                 y += 70
                 x -= 250
@@ -112,14 +115,29 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         }
     }
     
-    func loadStepper(view:UIView, origin:CGPoint, section:String){
+    func loadStepper(view:UIView, origin:CGPoint, section:String,sectionNum:Int)->UIStepper{
         let myStepper = SectionStepper()
         self.view.addSubview(myStepper)
         myStepper.section = section
+        myStepper.sectionNum = sectionNum
+        myStepper.autorepeat = true
+        myStepper.isUserInteractionEnabled = false
         myStepper.frame = CGRect(origin:origin, size: CGSize(width:30,height:20))
+        myStepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
         view.addSubview(myStepper)
         self.mySteppers.append(myStepper)
+        
+        return myStepper
     }
+    
+    @objc func stepperValueChanged(sender: UIStepper){
+        print(sender.value)
+        let sectionStepper = sender as! SectionStepper
+        sectionStudents[sectionStepper.sectionNum-1] = Int(sectionStepper.value)
+        myPickerViews[sectionStepper.sectionNum-1].selectRow(Int(sectionStepper.value), inComponent: 0, animated: true)
+        if startPressed==true{
+            delegate?.userDidSelectSectionStudents(section: sectionStepper.section, numStudents: Int(sectionStepper.value))}
+            }
     
     func loadButton(view: UIView, origin: CGPoint, section: Int){
         let myButton = SectionButton(type: .system)
@@ -137,6 +155,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             sender.tintColor = .link
             let button = sender as! SectionButton
             button.picker?.isUserInteractionEnabled = true
+            button.stepper?.isUserInteractionEnabled = true
             let sectionNum = myButtons.firstIndex(of: button)! + 1;
             selectedSections.append(sectionNum)
             delegate?.userDidSelectSection(section: sectionNum, sender:button)
@@ -147,7 +166,8 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             sender.tintColor = .systemGray2
             let button = sender as! SectionButton
             button.picker?.isUserInteractionEnabled = false
-            
+            button.stepper?.isUserInteractionEnabled = false
+
             let sectionNum = myButtons.firstIndex(of: button)! + 1;
             
             if selectedSections.contains(sectionNum){
@@ -184,14 +204,28 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let sectionPicker = pickerView as! SectionPickerView
+        
+        let sectionNum = Int(sectionPicker.section.replacingOccurrences(of: "Section ", with: ""))!
+        sectionStudents[sectionNum-1] = row
         if startPressed==true{
-            delegate?.userDidSelectSectionStudents(section: sectionPicker.section, numStudents: row)}
+            delegate?.userDidSelectSectionStudents(section: sectionPicker.section, numStudents: row)
+            mySteppers[sectionNum-1].value = Double(row)
+        }
+        print(sectionStudents)
     }
     
     func assignButtonPickers(){
         var counter = 0;
         while counter<6{
             myButtons[counter].picker = myPickerViews[counter]
+            counter += 1
+        }
+    }
+    
+    func assignButtonSteppers(){
+        var counter = 0;
+        while counter<6{
+            myButtons[counter].stepper = mySteppers[counter]
             counter += 1
         }
     }
@@ -209,10 +243,18 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         self.mySteppers.removeAll()
         self.selectedSections.removeAll()
         self.viewDidLoad()
+        self.sectionStudents = [0,0,0,0,0,0]
     }
     
     func startButtonPressed() {
         startPressed = true
+        loadSteppers()
+        
+        for stepper in mySteppers {
+            stepper.backgroundColor = .white
+            stepper.alpha = 2.0
+        }
+        assignButtonSteppers()
         deselectAllSections()
     }
     
@@ -223,6 +265,8 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
             sender.tintColor = .link
             let button = sender as! SectionButton
             button.picker?.isUserInteractionEnabled = true
+            button.stepper?.isUserInteractionEnabled = true
+
             let sectionNum = myButtons.firstIndex(of: button)! + 1;
             selectedSections.append(sectionNum)
             delegate?.userDidSelectSection(section: sectionNum, sender:button)
@@ -238,7 +282,8 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
                 sender.tintColor = .systemGray2
                 let button = sender as! SectionButton
                 button.picker?.isUserInteractionEnabled = false
-                
+                button.stepper?.isUserInteractionEnabled = false
+
                 let sectionNum = myButtons.firstIndex(of: button)! + 1;
                 
                 if selectedSections.contains(sectionNum){
