@@ -40,16 +40,16 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     
     func loadSections(){
         var counter = 1;
-        var x = 100;
-        var y = 20;
+        var x = 125;
+        var y = 40;
         while (counter<7){
             loadSectionView(num: counter, origin: CGPoint(x:x,y:y))
             if counter%2 == 0{
-                y += 70
-                x -= 250
+                y += 80
+                x -= 245
             }
             else {
-                x+=250
+                x+=245
             }
         counter += 1
         }
@@ -59,20 +59,20 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         let myView = UIView()
         myView.backgroundColor = .white
         self.view.addSubview(myView)
-        myView.frame = CGRect(origin: origin, size: CGSize(width: 150, height: 50))
-        loadButton(view: myView, origin: CGPoint(x: 15, y: 15),section: num)
-        loadLabel(view: myView, text: "Section \(num)", origin: CGPoint(x: 45, y: 15))
+        myView.frame = CGRect(origin: origin, size: CGSize(width: 125, height: 60))
+        loadButton(view: myView, origin: CGPoint(x: 10, y: 20),section: num)
+        loadLabel(view: myView, text: "Section \(num)", origin: CGPoint(x: 35, y: 20))
         mySections.append(myView)
     }
     
     func loadPickerViews(){
         var counter = 1;
         var x = 0;
-        var y = 20;
+        var y = 40;
         while (counter<7){
             loadPickerView(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)")
             if counter%2 == 0{
-                y += 70
+                y += 85
                 x -= 250
             }
             else {
@@ -88,24 +88,24 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         myPicker.dataSource = self
         myPicker.delegate = self
         self.view.addSubview(myPicker)
-        myPicker.tintColor = .white
+        myPicker.alpha = 1.0
         myPicker.section = section
         myPicker.isUserInteractionEnabled = false
-        myPicker.frame = CGRect(origin: origin, size: CGSize(width: 100, height: 80))
+        myPicker.frame = CGRect(origin: origin, size: CGSize(width: 125, height: 70))
         view.addSubview(myPicker)
         myPickerViews.append(myPicker)
     }
     
     func loadSteppers(){
         var counter = 1;
-        var x = 2;
-        var y = 10;
+        var x = 15;
+        var y = 20;
         while (counter<7){
             let stepper = loadStepper(view: self.view, origin: CGPoint(x:x,y:y), section: "Section \(counter)", sectionNum: counter)
             stepper.value = Double(sectionStudents[counter-1])
             print(myPickerViews[counter-1])
             if counter%2 == 0{
-                y += 70
+                y += 85
                 x -= 250
             }
             else {
@@ -143,7 +143,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         let myButton = SectionButton(type: .system)
         myButton.setBackgroundImage(UIImage(systemName: "square"), for: .normal)
         view.addSubview(myButton)
-        myButton.frame = CGRect(origin: origin, size: CGSize(width: 20, height: 20))
+        myButton.frame = CGRect(origin: origin, size: CGSize(width: 22, height: 22))
         myButton.tintColor = UIColor.systemGray2
         myButton.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
         myButtons.append(myButton)
@@ -213,7 +213,7 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
         }
         print(sectionStudents)
     }
-    
+
     func assignButtonPickers(){
         var counter = 0;
         while counter<6{
@@ -249,11 +249,6 @@ class SectionsVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate
     func startButtonPressed() {
         startPressed = true
         loadSteppers()
-        
-        for stepper in mySteppers {
-            stepper.backgroundColor = .white
-            stepper.alpha = 2.0
-        }
         assignButtonSteppers()
         deselectAllSections()
     }
