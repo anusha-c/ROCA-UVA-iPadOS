@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 protocol PrimaryViewControllerDelegate:AnyObject {
     func startButtonPressed(_ start: Bool)
@@ -106,6 +108,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     @IBOutlet weak var sectionsContainerView: UIView!
     @IBOutlet weak var classroomSectionsContainerView: UIView!
     @IBOutlet weak var classroomImageView: UIImageView!
+    @IBOutlet weak var classroomVideoView: UIView!
     
     
     weak var primaryDelegate:PrimaryViewControllerDelegate?=nil;
@@ -122,12 +125,14 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     
     let rssParser = RSSParser()
     let rssUrl = URL(string:"https://uva.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=df6e8127-2519-4ca2-93f7-aacb00ca4463&type=mp4")
-    
+    let videoController = AVPlayerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         noteTaker.delegate = self;
-        
+        videoController.view.frame.size.height = classroomVideoView.frame.size.height
+        videoController.view.frame.size.width = classroomVideoView.frame.size.width
+        classroomVideoView.isHidden = true;
         // Do any additional setup after loading the view.
     }
     
@@ -214,8 +219,26 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         
     }
     
-    func userDidSelectClassroom(number: String,classroom:ClassRoom?) {
-        //TODO: Update classroom name, classroom image, and sections once a classroom is successfully selected.
+    func userDidSelectClassroom(number: String,classroom:ClassRoom?,index: Int?) {
+        //TODO: Update classroom video feed
+        
+        //TODO: Replace 15 in the line below with the appropriate classroom
+        //number
+        if(index != nil){
+            classroomVideoView.isHidden = false;
+            classroomVideoView.addSubview(videoController.view)
+            rssParser.startParsingWithContentsOfURL(rssURL: rssUrl!, with: {_ in })
+            let ind = (index ?? 0) + 1
+                if(ind < rssParser.parsedData.count){
+                    guard let url = URL(string: rssParser.parsedData[ind]["guid"]!) else {
+                            return
+                        }
+                    let player = AVPlayer(url: url)
+                    videoController.player = player
+                    player.play()
+                }
+        }
+        
         if (number != ""){
             classroomLabel.text = number;
             classroomLabel.textColor = UIColor.black
@@ -317,6 +340,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     }
     
     func stopAlert(){
+        videoController.player!.pause()
         let alert = UIAlertController(title: "Are you sure you want to perform this action?", message: "This cannot be undone", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Stop", style: .default, handler: handleStop(_:)))
         alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
@@ -352,6 +376,9 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         startStopButton.isEnabled = false;
         sectionsContainerView.isHidden = true;
         classroomSectionsContainerView.isHidden = true;
+        classroomVideoView.isHidden = true;
+        videoController.player?.pause()
+
         
         sectionsDelegate?.resetButtonPressed()
         selectedSections = []

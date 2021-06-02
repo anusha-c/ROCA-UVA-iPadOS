@@ -79,7 +79,7 @@ class ClassroomSectionsVC: UIViewController, ClassroomSelectedDelegate,
         myLabels.append(myLabel)
     }
     
-    func userDidSelectClassroom(number: String, classroom: ClassRoom?) {
+    func userDidSelectClassroom(number: String, classroom: ClassRoom?, index: Int?) {
         resetAll()
         if classroom != nil{
             self.selectedClassroom = classroom

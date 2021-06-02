@@ -7,7 +7,7 @@
 import UIKit
 
 protocol ClassroomSelectedDelegate: AnyObject {
-    func userDidSelectClassroom(number: String,classroom:ClassRoom?)
+    func userDidSelectClassroom(number: String,classroom:ClassRoom?,index:Int?)
 }
 
 class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -16,6 +16,7 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
     var delegates:[ClassroomSelectedDelegate] = []
     var selectedClassroomNum: String?=nil;
     var selectedClassroom:ClassRoom?=nil;
+    var selectedIndex:Int?=nil;
     var classrooms = [
         ClassRoom("McLeod Hall", ["MCL-1020"]),
         ClassRoom("Mechanical Engineering", ["MEC-341"]),
@@ -38,6 +39,7 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.selectedClassroomNum = classrooms[indexPath.section].num[indexPath.row]
         self.selectedClassroom = classrooms[indexPath.section]
+        self.selectedIndex = indexPath.section
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -61,7 +63,7 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
     
     @IBAction func donePressed(_ sender: UIBarButtonItem) {
         for delegate in delegates{
-            delegate.userDidSelectClassroom(number: selectedClassroomNum ?? "", classroom: selectedClassroom)
+            delegate.userDidSelectClassroom(number: selectedClassroomNum ?? "", classroom: selectedClassroom, index: selectedIndex)
         }
         self.dismiss(animated: true, completion: nil)
     }
