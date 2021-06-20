@@ -46,8 +46,8 @@ class selectClassroomVC: UIViewController, UITableViewDataSource, UITableViewDel
         }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //self.selectedClassroomNum = classrooms[indexPath.section].num[indexPath.row]
-        //self.selectedClassroom = classrooms[indexPath.section]
+        self.selectedClassroomNum = rssParser.parsedData[indexPath.section + 1]["title"]
+        //self.selectedClassroom = rssParser.parsedData[indexPath.section + 1]
         self.selectedIndex = indexPath.section
     }
     

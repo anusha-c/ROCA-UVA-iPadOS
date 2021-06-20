@@ -49,6 +49,11 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     @IBOutlet weak var classroomSectionsContainerView: UIView!
     @IBOutlet weak var classroomImageView: UIImageView!
     @IBOutlet weak var classroomVideoView: UIView!
+    @IBOutlet weak var previewButton: UIButton!
+    @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var pauseButton: UIButton!
+    @IBOutlet weak var rewindButton: UIButton!
+    @IBOutlet weak var forwardButton: UIButton!
     
     
     weak var primaryDelegate:PrimaryViewControllerDelegate?=nil;
@@ -66,6 +71,15 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     let rssParser = RSSParser()
     let rssUrl = URL(string:"https://uva.hosted.panopto.com/Panopto/Podcast/Podcast.ashx?courseid=df6e8127-2519-4ca2-93f7-aacb00ca4463&type=mp4")
     let videoController = AVPlayerViewController()
+    
+    // the following variable indicates which state the video player was in most recently.
+    //---- Play/Pause : 0
+    //---- Rewind/Fast Forward : 1
+    //---- Preview state : 2
+    var playerPreviousState = 0;
+    
+    //the following variable is to keep track of the player's timestamp
+    var currentTimestamp:CMTime?;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,6 +108,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             self.selectedSections=[]
             sessionStarted = true;
             noteTaker.takeNotes(note: "Observation started", type: nil)
+            videoController.player?.play()
             startStopButton.backgroundColor = UIColor.red;
             startStopLabel.text = "Stop";
         }
@@ -102,12 +117,77 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         }
     }
     
+    //---------------------VIDEO PLAYBACK CONTROLS---------------------------
+    
+    @IBAction func playPressed(_ sender: UIButton) {
+        zEventsContainerView.isUserInteractionEnabled = true;
+        aEventsContainerView.isUserInteractionEnabled = true;
+        zEventsContainerView.alpha = 1
+        aEventsContainerView.alpha = 1
+        
+        if(playerPreviousState == 2){
+            let smallValue = 0.0401588716
+            let frameTime = CMTime(seconds: smallValue, preferredTimescale: 1000000)
+            videoController.player?.seek(to: currentTimestamp ?? frameTime)
+            
+            //also re-enable comment button
+        }
+        
+        playerPreviousState = 0;
+        videoController.player?.play()
+    }
+    
+    @IBAction func pausePressed(_ sender: UIButton) {
+        videoController.player?.pause()
+        
+        zEventsContainerView.isUserInteractionEnabled = false;
+        aEventsContainerView.isUserInteractionEnabled = false;
+        zEventsContainerView.alpha = 0.8
+        aEventsContainerView.alpha = 0.8
+    }
+    
+    @IBAction func rewindPressed(_ sender: UIButton) {
+        //TODO: -Rewind
+        playerPreviousState = 1;
+        zEventsContainerView.isUserInteractionEnabled = false;
+        aEventsContainerView.isUserInteractionEnabled = false;
+        zEventsContainerView.alpha = 0.8
+        aEventsContainerView.alpha = 0.8
+    }
+    
+    @IBAction func forwardPressed(_ sender: Any) {
+        //TODO: -Fast forward
+        
+        playerPreviousState = 1;
+        zEventsContainerView.isUserInteractionEnabled = false;
+        aEventsContainerView.isUserInteractionEnabled = false;
+        zEventsContainerView.alpha = 0.8
+        aEventsContainerView.alpha = 0.8
+    }
+    
+    @IBAction func previewButtonPressed(_ sender: UIButton) {
+        playerPreviousState = 2;
+        
+        zEventsContainerView.isUserInteractionEnabled = false;
+        aEventsContainerView.isUserInteractionEnabled = false;
+        zEventsContainerView.alpha = 0.8
+        aEventsContainerView.alpha = 0.8
+        currentTimestamp = videoController.player?.currentTime()
+        noteTaker.takeNotes(note: "paused at " + String(currentTimestamp?.seconds ?? 0.00) + " seconds" , type: "Preview")
+        
+        //TODO:
+        //  -Disable comment button
+    }
+    
+    //-------------------------END VIDEO PLAYBACK CONTROLS----------------------------
+    
     @IBAction func resetButtonPressed(_ sender: UIButton) {
         //TODO: Reset all displays and buttons
         handleReset()
     }
     
     @IBAction func commentButtonPressed(_ sender: UIButton) {
+        videoController.player?.pause()
         self.performSegue(withIdentifier: "commentSegue", sender: self)
     }
     
@@ -156,6 +236,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     
     func userDidEnterComment(comment: String){
         noteTaker.takeNotes(note:comment,type:"Comment")
+        videoController.player?.play()
         
     }
     
@@ -172,7 +253,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
                     let player = AVPlayer(url: url)
                     videoController.player = player
                     videoController.showsPlaybackControls = true;
-                    player.play()
+                    //player.play()
                 }
         }
         
@@ -184,6 +265,16 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             noteTaker.takeNotes(note:number,type:"Classroom")
             selectActivityButton.isEnabled = true;
             startStopButton.isEnabled = true;
+            previewButton.isHidden = false;
+            previewButton.isEnabled = true;
+            playButton.isHidden = false;
+            playButton.isEnabled = true;
+            pauseButton.isHidden = false;
+            pauseButton.isEnabled = true;
+            rewindButton.isHidden = false;
+            rewindButton.isEnabled = true;
+            forwardButton.isHidden = false;
+            forwardButton.isEnabled = true;
             //sectionsContainerView.isHidden = false;
             //classroomSectionsContainerView.isHidden = false;
             //sectionsDelegate?.resetButtonPressed()
@@ -301,6 +392,11 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         feedBackLabel.text = "Start recording events!"
         sessionStarted = false;
         startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
+        previewButton.isHidden = true;
+        playButton.isHidden = true;
+        pauseButton.isHidden = true;
+        rewindButton.isHidden = true;
+        forwardButton.isHidden = true;
         startStopLabel.text = "Start";
         classroomLabel.text = "none selected";
         classroomLabel.textColor = UIColor.link
