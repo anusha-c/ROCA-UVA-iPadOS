@@ -41,6 +41,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     @IBOutlet weak var activityTitle: UILabel!
     @IBOutlet weak var feedBackLabel: UILabel!
     @IBOutlet weak var startStopButton: UIButton!
+    @IBOutlet weak var commentButton: UIButton!
     @IBOutlet weak var selectActivityButton: UIButton!
     @IBOutlet weak var startStopLabel: UILabel!
     @IBOutlet weak var zEventsContainerView: UIView!
@@ -129,8 +130,8 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             let smallValue = 0.0401588716
             let frameTime = CMTime(seconds: smallValue, preferredTimescale: 1000000)
             videoController.player?.seek(to: currentTimestamp ?? frameTime)
-            
-            //also re-enable comment button
+            commentButton.isEnabled = true;
+            commentButton.alpha = 1;
         }
         
         playerPreviousState = 0;
@@ -138,6 +139,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     }
     
     @IBAction func pausePressed(_ sender: UIButton) {
+        playerPreviousState = 0;
         videoController.player?.pause()
         
         zEventsContainerView.isUserInteractionEnabled = false;
@@ -147,8 +149,10 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     }
     
     @IBAction func rewindPressed(_ sender: UIButton) {
-        //TODO: -Rewind
         playerPreviousState = 1;
+        
+        videoController.player?.playImmediately(atRate: -10.0)
+        
         zEventsContainerView.isUserInteractionEnabled = false;
         aEventsContainerView.isUserInteractionEnabled = false;
         zEventsContainerView.alpha = 0.8
@@ -156,9 +160,9 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     }
     
     @IBAction func forwardPressed(_ sender: Any) {
-        //TODO: -Fast forward
-        
         playerPreviousState = 1;
+        
+        videoController.player?.playImmediately(atRate: 10.0)
         zEventsContainerView.isUserInteractionEnabled = false;
         aEventsContainerView.isUserInteractionEnabled = false;
         zEventsContainerView.alpha = 0.8
@@ -170,13 +174,13 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         
         zEventsContainerView.isUserInteractionEnabled = false;
         aEventsContainerView.isUserInteractionEnabled = false;
+        commentButton.isEnabled = false;
+        commentButton.alpha = 0.7
         zEventsContainerView.alpha = 0.8
         aEventsContainerView.alpha = 0.8
         currentTimestamp = videoController.player?.currentTime()
         noteTaker.takeNotes(note: "paused at " + String(currentTimestamp?.seconds ?? 0.00) + " seconds" , type: "Preview")
         
-        //TODO:
-        //  -Disable comment button
     }
     
     //-------------------------END VIDEO PLAYBACK CONTROLS----------------------------

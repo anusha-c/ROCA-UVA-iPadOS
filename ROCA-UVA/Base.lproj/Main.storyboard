@@ -448,6 +448,7 @@
                         <outlet property="classroomLabel" destination="0ug-rk-hRc" id="ACG-Hd-C30"/>
                         <outlet property="classroomSectionsContainerView" destination="jDA-zG-Nj9" id="h3i-nA-Rh5"/>
                         <outlet property="classroomVideoView" destination="f66-C3-59m" id="pzk-Am-2uh"/>
+                        <outlet property="commentButton" destination="S6O-jJ-4yQ" id="G2E-O4-5XD"/>
                         <outlet property="feedBackLabel" destination="Bk6-sz-wCb" id="8mo-zi-cTH"/>
                         <outlet property="forwardButton" destination="P8g-tH-TFp" id="tuz-zN-NyX"/>
                         <outlet property="pauseButton" destination="bUD-vh-Pdf" id="hiI-fe-zDy"/>
