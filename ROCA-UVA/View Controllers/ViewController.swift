@@ -30,66 +30,6 @@ protocol ViewControllerClassroomSectionsDelegate:AnyObject {
     func sectionCheckBoxSelected(sectionNum: Int)
 }
 
-class RSSParser:NSObject, XMLParserDelegate{
-    var xmlParser: XMLParser!
-    var currentElement = ""
-    var foundCharacters = ""
-    var currentData = [String:String]()
-    var parsedData = [[String:String]]()
-    var isHeader = false
-    
-    func startParsingWithContentsOfURL(rssURL: URL, with completion: (Bool)->()){
-        let parser = XMLParser(contentsOf: rssURL)
-        parser?.delegate = self
-        if let flag = parser?.parse() {
-            //for handling the last element in the feed
-            parsedData.append(currentData)
-            completion(flag)
-        }
-    }
-    
-    //keep relevant tag content
-    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        currentElement = elementName
-        
-        //not interested in header tag, so we go to <item> tags
-        if currentElement == "item"{
-            //starts at the (n+1)th entry
-            if isHeader == false{
-                parsedData.append(currentData)
-            }
-            
-            isHeader = false
-            
-        }
-            
-            if isHeader == false {
-                //any thumnails that may exist?? our feed most probably
-                //doesn't have these
-            }
-            
-    }
-    
-    func parser(_ parser: XMLParser, foundCharacters string: String) {
-        if isHeader == false{
-            if (currentElement == "title" || currentElement == "itunes:author" || currentElement == "link" ||  currentElement == "guid" || currentElement == "pubDate" || currentElement == "itunes:duration"){
-                foundCharacters += string
-                //TODO: Find a way to remove HTML tags
-            }
-        }
-    }
-    
-    //look at closing tag
-    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if !foundCharacters.isEmpty{
-            foundCharacters = foundCharacters.trimmingCharacters(in: .whitespacesAndNewlines)
-            currentData[currentElement] = foundCharacters
-            foundCharacters = ""
-            
-        }
-    }
-    
-}
 
 class ViewController: UIViewController, CommentEnteredDelegate,
                       ClassroomSelectedDelegate, ActivitySelectedDelegate,
@@ -220,10 +160,6 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     }
     
     func userDidSelectClassroom(number: String,classroom:ClassRoom?,index: Int?) {
-        //TODO: Update classroom video feed
-        
-        //TODO: Replace 15 in the line below with the appropriate classroom
-        //number
         if(index != nil){
             classroomVideoView.isHidden = false;
             classroomVideoView.addSubview(videoController.view)
@@ -235,6 +171,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
                         }
                     let player = AVPlayer(url: url)
                     videoController.player = player
+                    videoController.showsPlaybackControls = true;
                     player.play()
                 }
         }
@@ -247,12 +184,11 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             noteTaker.takeNotes(note:number,type:"Classroom")
             selectActivityButton.isEnabled = true;
             startStopButton.isEnabled = true;
-            sectionsContainerView.isHidden = false;
-            classroomSectionsContainerView.isHidden = false;
-            
-            sectionsDelegate?.resetButtonPressed()
-            sectionsDelegate?.loadDefaultView()
-            selectedSections.removeAll()
+            //sectionsContainerView.isHidden = false;
+            //classroomSectionsContainerView.isHidden = false;
+            //sectionsDelegate?.resetButtonPressed()
+            //sectionsDelegate?.loadDefaultView()
+            //selectedSections.removeAll()
         }
         }
     

@@ -31,6 +31,7 @@
 		179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */; };
 		179E32F325A7732A0006B110 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32F225A7732A0006B110 /* ViewController.swift */; };
 		179E32FE25A775410006B110 /* selectActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 179E32FD25A775410006B110 /* selectActivityVC.swift */; };
+		17DA2620267F02F000D04454 /* RSSParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DA261F267F02F000D04454 /* RSSParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		179E32CE25A235A40006B110 /* ClassroomSectionsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassroomSectionsVC.swift; sourceTree = "<group>"; };
 		179E32F225A7732A0006B110 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		179E32FD25A775410006B110 /* selectActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = selectActivityVC.swift; sourceTree = "<group>"; };
+		17DA261F267F02F000D04454 /* RSSParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +142,7 @@
 				1758DC7C258BC8B700FC7C04 /* Info.plist */,
 				1758DCE3258EBF6500FC7C04 /* View Controllers */,
 				1758DCAF258EA3B200FC7C04 /* ClassRoom.swift */,
+				17DA261F267F02F000D04454 /* RSSParser.swift */,
 				1758DCBE258EB75D00FC7C04 /* NoteTaker.swift */,
 				1758DCE7258EC15500FC7C04 /* Database.swift */,
 				1758DD302592723900FC7C04 /* DatabaseManager.swift */,
@@ -319,6 +322,7 @@
 				1740E72A25BB6E8400F8B148 /* SectionStepper.swift in Sources */,
 				179E32A52598ED3B0006B110 /* AEventsVC.swift in Sources */,
 				179E32CF25A235A40006B110 /* ClassroomSectionsVC.swift in Sources */,
+				17DA2620267F02F000D04454 /* RSSParser.swift in Sources */,
 				1758DD312592723900FC7C04 /* DatabaseManager.swift in Sources */,
 				1758DC6F258BC8B500FC7C04 /* AppDelegate.swift in Sources */,
 				1758DCB0258EA3B200FC7C04 /* ClassRoom.swift in Sources */,
