@@ -74,9 +74,8 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     let videoController = AVPlayerViewController()
     
     // the following variable indicates which state the video player was in most recently.
-    //---- Play/Pause : 0
-    //---- Rewind/Fast Forward : 1
-    //---- Preview state : 2
+    //---- Play : 0
+    //---- Preview state : 1
     var playerPreviousState = 0;
     
     //the following variable is to keep track of the player's timestamp
@@ -108,7 +107,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             sectionsDelegate?.startButtonPressed()
             self.selectedSections=[]
             sessionStarted = true;
-            noteTaker.takeNotes(note: "Observation started", type: nil)
+            noteTaker.takeNotes(note: "Observation started", type: nil, playbackTime: nil)
             videoController.player?.play()
             startStopButton.backgroundColor = UIColor.red;
             startStopLabel.text = "Stop";
@@ -121,65 +120,81 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     //---------------------VIDEO PLAYBACK CONTROLS---------------------------
     
     @IBAction func playPressed(_ sender: UIButton) {
-        zEventsContainerView.isUserInteractionEnabled = true;
-        aEventsContainerView.isUserInteractionEnabled = true;
-        zEventsContainerView.alpha = 1
-        aEventsContainerView.alpha = 1
-        
-        if(playerPreviousState == 2){
-            let smallValue = 0.0401588716
-            let frameTime = CMTime(seconds: smallValue, preferredTimescale: 1000000)
-            videoController.player?.seek(to: currentTimestamp ?? frameTime)
-            commentButton.isEnabled = true;
-            commentButton.alpha = 1;
-        }
-        
-        playerPreviousState = 0;
         videoController.player?.play()
     }
     
     @IBAction func pausePressed(_ sender: UIButton) {
-        playerPreviousState = 0;
         videoController.player?.pause()
-        
-        zEventsContainerView.isUserInteractionEnabled = false;
-        aEventsContainerView.isUserInteractionEnabled = false;
-        zEventsContainerView.alpha = 0.8
-        aEventsContainerView.alpha = 0.8
     }
     
     @IBAction func rewindPressed(_ sender: UIButton) {
-        playerPreviousState = 1;
-        
         videoController.player?.playImmediately(atRate: -10.0)
-        
-        zEventsContainerView.isUserInteractionEnabled = false;
-        aEventsContainerView.isUserInteractionEnabled = false;
-        zEventsContainerView.alpha = 0.8
-        aEventsContainerView.alpha = 0.8
     }
     
     @IBAction func forwardPressed(_ sender: Any) {
-        playerPreviousState = 1;
-        
         videoController.player?.playImmediately(atRate: 10.0)
-        zEventsContainerView.isUserInteractionEnabled = false;
-        aEventsContainerView.isUserInteractionEnabled = false;
-        zEventsContainerView.alpha = 0.8
-        aEventsContainerView.alpha = 0.8
     }
     
     @IBAction func previewButtonPressed(_ sender: UIButton) {
-        playerPreviousState = 2;
         
-        zEventsContainerView.isUserInteractionEnabled = false;
-        aEventsContainerView.isUserInteractionEnabled = false;
-        commentButton.isEnabled = false;
-        commentButton.alpha = 0.7
-        zEventsContainerView.alpha = 0.8
-        aEventsContainerView.alpha = 0.8
-        currentTimestamp = videoController.player?.currentTime()
-        noteTaker.takeNotes(note: "paused at " + String(currentTimestamp?.seconds ?? 0.00) + " seconds" , type: "Preview")
+        //Entering "Preview" State:
+        if(playerPreviousState == 0){
+            playerPreviousState = 1;
+            
+            sender.backgroundColor = .red;
+            sender.setTitle("Stop Preview", for: .normal)
+                
+            currentTimestamp = videoController.player?.currentTime()
+            noteTaker.takeNotes(note: "Preview Button Pressed", type: nil, playbackTime: videoController.player?.currentTime() ?? nil)
+        
+            playButton.isEnabled = true;
+            pauseButton.isEnabled = true;
+            rewindButton.isEnabled = true;
+            forwardButton.isEnabled = true;
+            
+            playButton.alpha = 1;
+            pauseButton.alpha = 1;
+            rewindButton.alpha = 1;
+            forwardButton.alpha = 1;
+            
+            zEventsContainerView.isUserInteractionEnabled = false;
+            aEventsContainerView.isUserInteractionEnabled = false;
+            zEventsContainerView.alpha = 0.8
+            aEventsContainerView.alpha = 0.8
+            commentButton.isEnabled = false;
+            commentButton.alpha = 0.7
+        }
+        
+        //Exiting "Preview" State:
+        else if(playerPreviousState == 1){
+            playerPreviousState = 0;
+            
+            sender.backgroundColor = .systemYellow;
+            sender.setTitle("Preview", for: .normal)
+
+            
+            let smallValue = 0.0401588716
+            let frameTime = CMTime(seconds: smallValue, preferredTimescale: 1000000)
+            videoController.player?.seek(to: currentTimestamp ?? frameTime)
+            videoController.player?.play()
+            
+            playButton.isEnabled = false;
+            pauseButton.isEnabled = false;
+            rewindButton.isEnabled = false;
+            forwardButton.isEnabled = false;
+            
+            playButton.alpha = 0.5;
+            pauseButton.alpha = 0.5;
+            rewindButton.alpha = 0.5;
+            forwardButton.alpha = 0.5;
+            
+            zEventsContainerView.isUserInteractionEnabled = true;
+            aEventsContainerView.isUserInteractionEnabled = true;
+            zEventsContainerView.alpha = 1
+            aEventsContainerView.alpha = 1
+            commentButton.isEnabled = true;
+            commentButton.alpha = 1
+        }
         
     }
     
@@ -239,7 +254,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         }
     
     func userDidEnterComment(comment: String){
-        noteTaker.takeNotes(note:comment,type:"Comment")
+        noteTaker.takeNotes(note:comment,type:"Comment",playbackTime: videoController.player?.currentTime())
         videoController.player?.play()
         
     }
@@ -266,19 +281,19 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             classroomLabel.textColor = UIColor.black
             classroomLabel.font = UIFont(name: "HelveticaNeue-Bold", size: 28.0)
             classroomImageView.image = UIImage(named:number)
-            noteTaker.takeNotes(note:number,type:"Classroom")
+            noteTaker.takeNotes(note:number,type:"Classroom",playbackTime: nil)
             selectActivityButton.isEnabled = true;
             startStopButton.isEnabled = true;
             previewButton.isHidden = false;
             previewButton.isEnabled = true;
             playButton.isHidden = false;
-            playButton.isEnabled = true;
+            playButton.isEnabled = false;
             pauseButton.isHidden = false;
-            pauseButton.isEnabled = true;
+            pauseButton.isEnabled = false;
             rewindButton.isHidden = false;
-            rewindButton.isEnabled = true;
+            rewindButton.isEnabled = false;
             forwardButton.isHidden = false;
-            forwardButton.isEnabled = true;
+            forwardButton.isEnabled = false;
             //sectionsContainerView.isHidden = false;
             //classroomSectionsContainerView.isHidden = false;
             //sectionsDelegate?.resetButtonPressed()
@@ -293,7 +308,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
             self.selectedActivity = activity
             activityTitle.text = activity!.title
             let noteToTake = activity!.title + " [" + activity!.code + "]"
-            noteTaker.takeNotes(note: noteToTake, type: "Activity");
+            noteTaker.takeNotes(note: noteToTake, type: "Activity", playbackTime: videoController.player?.currentTime() ?? nil);
             
             //Loading Z-Event Buttons:
             zEventsContainerView.isHidden = false;
@@ -328,7 +343,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
     
     func userDidSelectSectionStudents(section: String, numStudents: Int) {
         let noteToTake = "\(numStudents) student(s) [\(section)]"
-        noteTaker.takeNotes(note:noteToTake,type:"Event")
+        noteTaker.takeNotes(note:noteToTake,type:"Event",playbackTime: nil)
     }
     
     
@@ -344,24 +359,24 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         }
         
         if (button.event!.type == "instantaneous"){
-            noteTaker.takeNotes(note: noteToTake, type: "Event")}
+            noteTaker.takeNotes(note: noteToTake, type: "Event", playbackTime: videoController.player?.currentTime() ?? nil)}
         else if (button.event!.type == "durational"){
             if button.durationalStatus == true {
-                noteTaker.takeNotes(note: noteToTake, type: "End of event")}
+                noteTaker.takeNotes(note: noteToTake, type: "End of event", playbackTime: videoController.player?.currentTime() ?? nil)}
             else {
-                noteTaker.takeNotes(note: noteToTake, type: "Start of event")}
+                noteTaker.takeNotes(note: noteToTake, type: "Start of event", playbackTime: videoController.player?.currentTime() ?? nil)}
         }
     }
     
     func aEventButtonPressed(button: EventButton) {
         let noteToTake = button.currentTitle! + " [" + button.event!.code + "]"
         if (button.event!.type == "instantaneous"){
-            noteTaker.takeNotes(note: noteToTake, type: "Event")}
+            noteTaker.takeNotes(note: noteToTake, type: "Event", playbackTime: videoController.player?.currentTime() ?? nil)}
         else if (button.event!.type == "durational"){
             if button.durationalStatus == true {
-                noteTaker.takeNotes(note: noteToTake, type: "End of event")}
+                noteTaker.takeNotes(note: noteToTake, type: "End of event", playbackTime: videoController.player?.currentTime() ?? nil)}
             else {
-                noteTaker.takeNotes(note: noteToTake, type: "Start of event")}
+                noteTaker.takeNotes(note: noteToTake, type: "Start of event", playbackTime: videoController.player?.currentTime() ?? nil)}
         }
 }
     
@@ -384,7 +399,7 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         sessionStarted = false;
         primaryDelegate?.startButtonPressed(false)
         secondaryDelegate?.startButtonPressed(false)
-        noteTaker.takeNotes(note: "Observation stopped", type: nil)
+        noteTaker.takeNotes(note: "Observation stopped", type: nil, playbackTime: nil)
         startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
         startStopLabel.text = "Start";
         handleReset()
@@ -396,6 +411,9 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         feedBackLabel.text = "Start recording events!"
         sessionStarted = false;
         startStopButton.backgroundColor = UIColor(red: 0, green: 0.82, blue: 0, alpha: 1);
+        playerPreviousState = 0;
+        previewButton.backgroundColor = .systemYellow;
+        previewButton.setTitle("Preview", for: .normal);
         previewButton.isHidden = true;
         playButton.isHidden = true;
         pauseButton.isHidden = true;
@@ -414,6 +432,9 @@ class ViewController: UIViewController, CommentEnteredDelegate,
         classroomSectionsContainerView.isHidden = true;
         classroomVideoView.isHidden = true;
         videoController.player?.pause()
+        let smallValue = 0.0401588716
+        let frameTime = CMTime(seconds: smallValue, preferredTimescale: 1000000)
+        videoController.player?.seek(to: frameTime)
 
         
         sectionsDelegate?.resetButtonPressed()

@@ -5,6 +5,8 @@
 //  Created by Anusha Choudhary on 12/20/20.
 //
 import Foundation
+import AVKit
+import AVFoundation
 
 
 protocol NoteTakerDelegate: AnyObject {
@@ -24,17 +26,33 @@ struct NoteTaker {
         self.notes = "";
     }
     
-    mutating func takeNotes(note: String, type: String?){
-        let currentDate = Date()
-        let formatter = DateFormatter()
-        formatter.timeStyle = .medium
-        formatter.dateStyle = .none
-        let timeStamp = formatter.string(from: currentDate)
-        if type != nil {
-            self.currentNote = "[" + timeStamp + "] " + type! + ": " + note;
+    mutating func takeNotes(note: String, type: String?, playbackTime: CMTime?){
+        
+        if (playbackTime == nil){
+            let currentDate = Date()
+            let formatter = DateFormatter()
+            formatter.timeStyle = .medium
+            formatter.dateStyle = .none
+            let timeStamp = formatter.string(from: currentDate)
+            if type != nil {
+                self.currentNote = "[" + timeStamp + "] " + type! + ": " + note;
+            }
+            else {
+                self.currentNote = "[" + timeStamp + "] " + note;
+            }
         }
-        else {
-            self.currentNote = "[" + timeStamp + "] " + note;
+        else{
+            let timeInSeconds = playbackTime?.seconds ?? 0
+            let mins = Int(timeInSeconds/60)
+            let secs = timeInSeconds.truncatingRemainder(dividingBy: 60)
+            let millis = Int((secs - trunc(secs))*60)
+
+            if type != nil {
+                self.currentNote = "[" + String(mins) + ":" + String(Int(secs)) + ":" + String(millis) + "] " + type! + ": " + note;
+            }
+            else {
+                self.currentNote = "[" + String(mins) + ":" + String(Int(secs)) + ":" + String(millis) + "] " + note;
+            }
         }
         notes.append("\n"+currentNote!);
         delegate?.updateFeedBackBar(displayNote: currentNote!)
